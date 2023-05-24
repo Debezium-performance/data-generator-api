@@ -33,7 +33,10 @@ TBD
 ### Contributors
 
 This project exists thanks to all the people who contribute.
-<a href="https://github.com/Debezium-performance/data-generator-api"><img src="https://github.com/Debezium-performance/data-generator-api/contributors.svg?width=890&button=false" /></a>
+
+<a href="https://github.com/Debezium-performance/data-generator-api/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=Debezium-performance/data-generator-api" />
+</a>
 
 ## License
 [MIT](LICENSE) © Ondrej Babec
