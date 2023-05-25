@@ -1,51 +1,40 @@
-package io.debezium.datageneratorapi;
+package io.debezium.data.generator.api.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.debezium.perf.load.data.builder.PersonDataBuilder;
-import io.debezium.perf.load.data.builder.RequestBuilder;
-import io.debezium.perf.load.graph.GraphVisualisation;
-import io.debezium.perf.load.scenarios.ScenarioRequestExecutor;
-import io.debezium.perf.load.scenarios.builder.ConstantScenarioBuilder;
-import io.debezium.perf.load.scenarios.builder.LinearScenarioBuilder;
-import io.debezium.perf.load.scenarios.builder.PeakScenarioBuilder;
-import org.apache.coyote.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.debezium.performance.load.data.builder.BeerDataBuilder;
+import io.debezium.performance.load.data.builder.RequestBuilder;
+import io.debezium.performance.load.graph.GraphVisualisation;
+import io.debezium.performance.load.scenarios.ScenarioRequestExecutor;
+import io.debezium.performance.load.scenarios.builder.ConstantScenarioBuilder;
+import io.debezium.performance.load.scenarios.builder.LinearScenarioBuilder;
+import io.debezium.performance.load.scenarios.builder.PeakScenarioBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.*;
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/person")
-public class PersonRestController extends GeneratorRestController{
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(PersonRestController.class);
-
+@RequestMapping("/beer")
+public class BeerRestController extends GeneratorRestController {
     @RequestMapping(
             value = "/constant",
-            params = { "requestCount", "maxRowCount", "rate", "rounds" },
+            params = {"requestCount", "maxRowCount", "rate", "rounds"},
             produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
     )
     @ResponseBody
-    public ResponseEntity<byte[]> prepareConstantLoad (
+    public ResponseEntity<byte[]> prepareConstantLoad(
             @RequestParam("requestCount") int requestCount,
             @RequestParam("maxRowCount") int maxRowCount,
             @RequestParam("rate") int rate,
             @RequestParam("rounds") int rounds) throws URISyntaxException, JsonProcessingException {
-        RequestBuilder<PersonDataBuilder, ConstantScenarioBuilder> requestBuilder
-                = new RequestBuilder<>(new PersonDataBuilder(), new ConstantScenarioBuilder(rounds, rate));
+        RequestBuilder<ConstantScenarioBuilder> requestBuilder
+                = new RequestBuilder<>(new BeerDataBuilder(), new ConstantScenarioBuilder(rounds, rate));
 
         ScenarioRequestExecutor ex = requestBuilder
                 .setEndpoint(super.endpoint)
@@ -61,18 +50,18 @@ public class PersonRestController extends GeneratorRestController{
 
     @RequestMapping(
             value = "/linear",
-            params = { "requestCount", "maxRowCount", "rate", "delta" },
+            params = {"requestCount", "maxRowCount", "rate", "delta"},
             produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
     )
     @ResponseBody
-    public ResponseEntity<byte[]> prepareLinearLoad (
+    public ResponseEntity<byte[]> prepareLinearLoad(
             @RequestParam("requestCount") int requestCount,
             @RequestParam("maxRowCount") int maxRowCount,
             @RequestParam("rate") int rate,
             @RequestParam("delta") int delta) throws URISyntaxException, JsonProcessingException {
 
-        RequestBuilder<PersonDataBuilder, LinearScenarioBuilder> requestBuilder
-                = new RequestBuilder<>(new PersonDataBuilder(), new LinearScenarioBuilder(delta, rate));
+        RequestBuilder<LinearScenarioBuilder> requestBuilder
+                = new RequestBuilder<>(new BeerDataBuilder(), new LinearScenarioBuilder(delta, rate));
 
         ScenarioRequestExecutor ex = requestBuilder
                 .setEndpoint(super.endpoint)
@@ -89,11 +78,11 @@ public class PersonRestController extends GeneratorRestController{
 
     @RequestMapping(
             value = "/peak",
-            params = { "requestCount", "maxRowCount", "rate", "peakLevel", "peakRounds", "quietRounds" },
+            params = {"requestCount", "maxRowCount", "rate", "peakLevel", "peakRounds", "quietRounds"},
             produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
     )
     @ResponseBody
-    public ResponseEntity<byte[]> preparePeakLoad (
+    public ResponseEntity<byte[]> preparePeakLoad(
             @RequestParam("requestCount") int requestCount,
             @RequestParam("maxRowCount") int maxRowCount,
             @RequestParam("rate") int rate,
@@ -101,8 +90,8 @@ public class PersonRestController extends GeneratorRestController{
             @RequestParam("peakRounds") int peakRounds,
             @RequestParam("quietRounds") int quietRounds) throws URISyntaxException, JsonProcessingException {
 
-        RequestBuilder<PersonDataBuilder, PeakScenarioBuilder> requestBuilder
-                = new RequestBuilder<>(new PersonDataBuilder(), new PeakScenarioBuilder(peakLevel, peakRounds, rate, quietRounds));
+        RequestBuilder<PeakScenarioBuilder> requestBuilder
+                = new RequestBuilder<>(new BeerDataBuilder(), new PeakScenarioBuilder(peakLevel, peakRounds, rate, quietRounds));
 
         ScenarioRequestExecutor ex = requestBuilder
                 .setEndpoint(super.endpoint)
