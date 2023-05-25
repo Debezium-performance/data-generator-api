@@ -15,7 +15,24 @@
 	<description>REST api for performance-data-generator</description>
 	<properties>
 		<java.version>17</java.version>
+		<github.global.server>github</github.global.server>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/Debezium-performance/data-generator</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -26,8 +43,8 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.debezium</groupId>
-			<artifactId>perf-load-generator</artifactId>
+			<groupId>io.debezium.performance</groupId>
+			<artifactId>data-generator</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -45,5 +62,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
