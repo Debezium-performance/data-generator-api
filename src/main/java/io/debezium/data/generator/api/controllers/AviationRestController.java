@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URISyntaxException;
+import java.net.MalformedURLException;
+import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
@@ -32,7 +33,7 @@ public class AviationRestController extends GeneratorRestController {
             @RequestParam("requestCount") int requestCount,
             @RequestParam("maxRowCount") int maxRowCount,
             @RequestParam("rate") int rate,
-            @RequestParam("rounds") int rounds) throws URISyntaxException, JsonProcessingException {
+            @RequestParam("rounds") int rounds) throws MalformedURLException, JsonProcessingException {
         RequestBuilder<ConstantScenarioBuilder> requestBuilder
                 = new RequestBuilder<>(new AviationDataBuilder(), new ConstantScenarioBuilder(rounds, rate));
 
@@ -58,7 +59,7 @@ public class AviationRestController extends GeneratorRestController {
             @RequestParam("requestCount") int requestCount,
             @RequestParam("maxRowCount") int maxRowCount,
             @RequestParam("rate") int rate,
-            @RequestParam("delta") int delta) throws URISyntaxException, JsonProcessingException {
+            @RequestParam("delta") int delta) throws MalformedURLException, JsonProcessingException {
 
         RequestBuilder<LinearScenarioBuilder> requestBuilder
                 = new RequestBuilder<>(new AviationDataBuilder(), new LinearScenarioBuilder(delta, rate));
@@ -88,7 +89,7 @@ public class AviationRestController extends GeneratorRestController {
             @RequestParam("rate") int rate,
             @RequestParam("peakLevel") int peakLevel,
             @RequestParam("peakRounds") int peakRounds,
-            @RequestParam("quietRounds") int quietRounds) throws URISyntaxException, JsonProcessingException {
+            @RequestParam("quietRounds") int quietRounds) throws MalformedURLException, JsonProcessingException {
 
         RequestBuilder<PeakScenarioBuilder> requestBuilder
                 = new RequestBuilder<>(new AviationDataBuilder(), new PeakScenarioBuilder(peakLevel, peakRounds, rate, quietRounds));

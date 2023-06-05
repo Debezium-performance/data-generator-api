@@ -45,7 +45,7 @@
 		<dependency>
 			<groupId>io.debezium.performance</groupId>
 			<artifactId>data-generator</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -75,7 +75,7 @@
 				<version>3.3.2</version>
 				<configuration>
 					<from>
-						<image>openjdk:17-alpine</image>
+						<image>openjdk:17-jdk-slim</image>
 					</from>
 					<container>
 						<ports>
